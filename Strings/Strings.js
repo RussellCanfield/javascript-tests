@@ -43,5 +43,33 @@ module.exports = {
         }
 
         return maxCount === 0 ? input.length : maxCount;
+    },
+
+    findLongestSubstringWithDistinct(str) {
+        let start = 0, end = 1;
+
+        let currentOutput = new Set();
+        currentOutput.add(str[start]);
+
+        let longest = 1;
+
+        while (end < str.length) {
+            if (!currentOutput.has(str[end])) {
+                currentOutput.add(str[end]);
+            } else {
+                if (currentOutput.size > longest) {
+                    longest = currentOutput.size;
+                }
+
+                currentOutput.clear();
+                currentOutput.add(str[end]);
+
+                start++;
+            }
+
+            end++;
+        }
+
+        return longest;
     }
 }

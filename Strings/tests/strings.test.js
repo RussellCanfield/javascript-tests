@@ -1,4 +1,4 @@
-const { findLongestSubstring } = require('../Strings');
+const { findLongestSubstring, findLongestSubstringWithDistinct } = require('../Strings');
 
 describe('Strings', () => {
     it ('longest substring with no more than 2 distinct characters', () => {
@@ -23,5 +23,11 @@ describe('Strings', () => {
         const output = findLongestSubstring('cbbebi', 10);
 
         expect(output).toBe(6);
+    });
+
+    it ('longest substring with distinct characters', () => {
+        const output = findLongestSubstringWithDistinct('aabccbb');
+
+        expect(output).toBe(3);
     });
 });

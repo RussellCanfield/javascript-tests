@@ -2,7 +2,8 @@ const {
     findLongestSubstring, 
     findLongestSubstringWithDistinct, 
     findLongestSubstringWithReplacements,
-    findLongestSubWithOnesAfterReplacement
+    stringPermutation,
+    stringFindPermutations,
 } = require('../Strings');
 
 describe('Strings', () => {
@@ -53,16 +54,34 @@ describe('Strings', () => {
 
         expect(output).toBe(3);
     });
-    
-    it('longest array with ones', () => {
-        const output = findLongestSubWithOnesAfterReplacement([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2);
 
-        expect(output).toBe(6);
+    it ('finds strings in permutations', () => {
+        const output = stringPermutation('oidbcaf', 'abc');
+
+        expect(output).toBe(true);
     });
 
-    it('longest array with ones', () => {
-        const output = findLongestSubWithOnesAfterReplacement([0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1], 3);
+    it ('finds strings in permutations', () => {
+        const output = stringPermutation('odicf', 'dc');
 
-        expect(output).toBe(9);
+        expect(output).toBe(false);
+    });
+
+    it ('finds strings in permutations', () => {
+        const output = stringPermutation('bcdxabcdy', 'bcdyabcdx');
+
+        expect(output).toBe(true);
+    });
+
+    it ('finds permutations', () => {
+        const output = stringFindPermutations('ppqp', 'pq');
+
+        expect(output).toStrictEqual(expect.arrayContaining([1, 2]));
+    });
+
+    it ('finds permutations', () => {
+        const output = stringFindPermutations('abbcabc', 'abc');
+
+        expect(output).toStrictEqual(expect.arrayContaining([2, 3, 4]));
     });
 });

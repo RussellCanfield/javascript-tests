@@ -116,5 +116,32 @@ module.exports = {
     }
 
     return output;
-  }
+  },
+
+  findLongestSubWithOnesAfterReplacement(arr, k) {
+    let start = 0, end = 1;
+    
+    let largestArray = 0;
+    let numOfOnes = arr[start] === 1 ? 1 : 0;
+
+    while (end < arr.length) {
+        if (arr[end] === 1) {
+            numOfOnes++;
+        }
+
+        if (end - start + 1 - numOfOnes > k || end === arr.length - 1) {
+            largestArray = Math.max(largestArray, end - start + 1);
+
+            if (arr[start] === 1) {
+                numOfOnes--;
+            }
+            
+            start++;
+        }
+
+        end++;
+    }
+
+    return largestArray;
+}
 };

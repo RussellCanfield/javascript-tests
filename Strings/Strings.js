@@ -109,22 +109,56 @@ module.exports = {
         return largestArray;
     },
 
-    findLongestSubWithOnesAfterReplacement(arr, k) {
-        let start = 0, end = 1;
-        
-        let largestArray = 0;
-        let numOfOnes = arr[start] === 1 ? 1 : 0;
+    stringPermutation(str, pattern) {
+        let start = 0, end = 0;
 
-        while (end < arr.length) {
-            if (arr[end] === 1) {
-                numOfOnes++;
+        let test = new Set(pattern);
+
+        let charMatch = 0;
+
+        while (end < str.length) {
+            if (!test.has(str[end])) {
+                start++;
+                charMatch = 0;
+            } else {
+                charMatch++;
+
+                if (charMatch === test.size) {
+                    return true;
+                }
             }
 
-            if (end - start + 1 - numOfOnes > k || end === arr.length - 1) {
-                largestArray = Math.max(largestArray, end - start + 1);
+            end++;
+        }
 
-                if (arr[start] === 1) {
-                    numOfOnes--;
+        return false;
+    },
+
+    stringFindPermutations(str, permutation) {
+        let start = 0, end = 1;
+
+        let input = new Set(permutation);
+
+        let output = [];
+
+        let subArray = new Set();
+
+        subArray.add(str[start]);
+
+        while (end < str.length) {
+            if (input.has(str[end])) {
+                subArray.add(str[end]);
+            }
+
+            if (end - start + 1 === input.size) {
+                if (subArray.size === input.size) {
+                    output.push(start);
+                } else {
+                    output.shift();
+                }
+
+                if (str[start] !== str[start + 1]) {
+                    subArray.delete(str[start]);
                 }
                 
                 start++;
@@ -133,6 +167,6 @@ module.exports = {
             end++;
         }
 
-        return largestArray;
+        return output;
     }
 }

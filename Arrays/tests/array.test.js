@@ -1,4 +1,4 @@
-const { averageSubArrays, averageSubArrays_opt, findLargestSubArray, findSmallest, fruitInBasket } = require('../Arrays');
+const { averageSubArrays, averageSubArrays_opt, findLargestSubArray, findSmallest, fruitInBasket, findLongestSubWithOnesAfterReplacement } = require('../Arrays');
 
 describe('Array Tests', () => {
     it('gets average of k subarrays', () => {
@@ -35,5 +35,17 @@ describe('Array Tests', () => {
         const output = fruitInBasket(['A', 'B', 'C', 'B', 'B', 'C']);
 
         expect(output).toEqual(5);
+    });
+    
+    it('longest array with ones', () => {
+        const output = findLongestSubWithOnesAfterReplacement([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2);
+
+        expect(output).toBe(6);
+    });
+
+    it('longest array with ones', () => {
+        const output = findLongestSubWithOnesAfterReplacement([0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1], 3);
+
+        expect(output).toBe(9);
     });
 });

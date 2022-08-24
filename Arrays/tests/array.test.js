@@ -1,4 +1,15 @@
-const { averageSubArrays, averageSubArrays_opt, findLargestSubArray, findSmallest, fruitInBasket, findLongestSubWithOnesAfterReplacement } = require('../Arrays');
+const { 
+    averageSubArrays, 
+    averageSubArrays_opt, 
+    findLargestSubArray, 
+    findSmallest, 
+    fruitInBasket, 
+    findLongestSubWithOnesAfterReplacement,
+    findPairWithSum,
+    removeDuplicates,
+    squareNumbers,
+    tripletSums
+} = require('../Arrays');
 
 describe('Array Tests', () => {
     it('gets average of k subarrays', () => {
@@ -48,4 +59,34 @@ describe('Array Tests', () => {
 
         expect(output).toBe(9);
     });
+
+    it('find pair that adds to sum in array', () => {
+        const output = findPairWithSum([1, 2, 3, 4, 6], 6);
+
+        expect(output).toStrictEqual(expect.arrayContaining([1, 3]));
+    });
+
+    it('find pair that adds to sum in array', () => {
+        const output = findPairWithSum([2, 5, 9, 11], 11);
+
+        expect(output).toStrictEqual(expect.arrayContaining([0, 2]));
+    });
+
+    it('remove duplicates', () => {
+        const output = removeDuplicates([2, 3, 3, 3, 6, 9, 9]);
+
+        expect(output.length).toBe(4);
+    });
+
+    it('squares numbers', () => {
+        const output = squareNumbers([-2, -1, 0, 2, 3]);
+
+        expect(output).toStrictEqual([0, 1, 4, 4, 9]);
+    });
+
+    /*it('triplet sums to 0', () => {
+        const output = squareNumbers([-3, 0, 1, 2, -1, 1, -2]);
+
+        expect(output).toStrictEqual([[-3, 1, 2], [-2, 0, 2], [-2, 1, 1], [-1, 0, 1]]);
+    });*/
 });

@@ -143,5 +143,73 @@ module.exports = {
     }
 
     return largestArray;
-}
+  },
+
+  findPairWithSum(arr, sum) {
+    let start = 0, end = arr.length - 1;
+
+    const output = [];
+
+    while (start < end &&
+            end > start) {
+      if (arr[start] + arr[end] < sum) {
+        start++;
+      } else if (arr[start] + arr[end] > sum) {
+        end--;
+      } else {
+        output.push(start, end);
+        break;
+      }
+    }
+
+    return output;
+  },
+
+  removeDuplicates(arr) {
+    let start = 0, end = 1;
+
+    while (end < arr.length) {
+      if (arr[start] !== arr[end]) {
+        start++;
+      }
+
+      if (arr[start] === arr[end - 1]) {
+        const swapVal = arr[end];
+        arr[end] = arr[start];
+        arr[start] = swapVal;
+      }
+
+      end++;
+    }
+
+    return arr.splice(0, start + 1);
+  },
+
+  squareNumbers(arr) {
+    const output = Array.from(arr.length).fill(0);
+
+    let highestValueIndex = arr.length - 1;
+    let start = 0, end = arr.length - 1;
+
+    while (start <= end) {
+      const startSq = arr[start] * arr[start];
+      const endSq = arr[end] * arr[end];
+
+      if (endSq >= startSq) {
+        output[highestValueIndex] = endSq;
+        end--;
+      } else {
+        output[highestValueIndex] = startSq;
+        start++;
+      }
+
+      highestValueIndex--;
+    }
+    
+    return output;
+  },
+
+  tripletSums() {
+    
+  }
 };

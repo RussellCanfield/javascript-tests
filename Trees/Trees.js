@@ -1,161 +1,226 @@
-module.exports = {
-	breadthFirst(root) {
-		const queue = [root];
-		const treeNodes = [];
+export function breadthFirst(root) {
+	const queue = [root];
+	const treeNodes = [];
 
-		while (queue.length > 0) {
-			const levelSize = queue.length;
-			const level = [];
+	while (queue.length > 0) {
+		const levelSize = queue.length;
+		const level = [];
 
-			for (let i = 0; i < levelSize; i++) {
-				let node = queue.pop();
+		for (let i = 0; i < levelSize; i++) {
+			let node = queue.pop();
 
-				if (!node) {
-					continue;
-				}
+			if (!node) {
+				continue;
+			}
 
+			level.push(node.val);
+
+			if (node.left) {
+				queue.unshift(node.left);
+			}
+
+			if (node.right) {
+				queue.unshift(node.right);
+			}
+		}
+
+		treeNodes.push(...level);
+	}
+
+	return treeNodes;
+}
+
+export function reverseLevelOrderTraversal(root) {
+	const treeNodes = [];
+	const queue = [root];
+
+	while (queue.length > 0) {
+		const levelSize = queue.length;
+		const level = [];
+
+		for (let i = 0; i < levelSize; i++) {
+			let node = queue.shift();
+
+			if (!node) {
+				continue;
+			}
+
+			level.push(node.val);
+
+			if (node.left) {
+				queue.push(node.left);
+			}
+
+			if (node.right) {
+				queue.push(node.right);
+			}
+		}
+
+		treeNodes.unshift(...level);
+	}
+
+	return treeNodes;
+}
+
+export function zigzagTraversal(root) {
+	const queue = [root];
+
+	let treeNodes = [];
+	let altLevel = true;
+
+	while (queue.length > 0) {
+		let levelSize = queue.length;
+		let level = [];
+
+		for (let i = 0; i < levelSize; i++) {
+			const node = queue.shift();
+
+			if (altLevel) {
 				level.push(node.val);
-
-				if (node.left) {
-					queue.unshift(node.left);
-				}
-
-				if (node.right) {
-					queue.unshift(node.right);
-				}
+			} else {
+				level.unshift(node.val);
 			}
 
-			treeNodes.push(...level);
-		}
-
-		return treeNodes;
-	},
-
-	reverseLevelOrderTraversal(root) {
-		const treeNodes = [];
-		const queue = [root];
-
-		while (queue.length > 0) {
-			const levelSize = queue.length;
-			const level = [];
-
-			for (let i = 0; i < levelSize; i++) {
-				let node = queue.shift();
-
-				if (!node) {
-					continue;
-				}
-
-				level.push(node.val);
-
-				if (node.left) {
-					queue.push(node.left);
-				}
-
-				if (node.right) {
-					queue.push(node.right);
-				}
+			if (node.left) {
+				queue.push(node.left);
 			}
 
-			treeNodes.unshift(...level);
+			if (node.right) {
+				queue.push(node.right);
+			}
 		}
 
-		return treeNodes;
-	},
+		altLevel = !altLevel;
 
-	zigzagTraversal(root) {
-		const queue = [root];
+		treeNodes.push(...level);
+	}
 
-		let treeNodes = [];
-		let altLevel = true;
+	return treeNodes;
+}
 
-		while (queue.length > 0) {
-			let levelSize = queue.length;
-			let level = [];
+export function averageLevel(root) {
+	const queue = [root];
 
-			for (let i = 0; i < levelSize; i++) {
-				const node = queue.shift();
+	const output = [];
 
-				if (altLevel) {
-					level.push(node.val);
-				} else {
-					level.unshift(node.val);
-				}
+	while (queue.length > 0) {
+		const levelSize = queue.length;
 
-				if (node.left) {
-					queue.push(node.left);
-				}
+		let levelAvg = 0;
+		for (let i = 0; i < levelSize; i++) {
+			const node = queue.shift();
 
-				if (node.right) {
-					queue.push(node.right);
-				}
+			levelAvg += node.val;
+
+			if (node.left) {
+				queue.push(node.left);
 			}
 
-			altLevel = !altLevel;
-
-			treeNodes.push(...level);
+			if (node.right) {
+				queue.push(node.right);
+			}
 		}
 
-		return treeNodes;
-	},
+		output.push(levelAvg / levelSize);
+	}
 
-	averageLevel(root) {
-		const queue = [root];
+	return output;
+}
 
-		const output = [];
+export function minimumDepth(root) {
+	const queue = [root];
 
-		while (queue.length > 0) {
-			const levelSize = queue.length;
+	let minDepth = Number.MAX_SAFE_INTEGER;
+	let level = 1;
 
-			let levelAvg = 0;
-			for (let i = 0; i < levelSize; i++) {
-				const node = queue.shift();
+	while (queue.length > 0) {
+		let levelSize = queue.length;
 
-				levelAvg += node.val;
+		for (let i = 0; i < levelSize; i++) {
+			const node = queue.shift();
 
-				if (node.left) {
-					queue.push(node.left);
-				}
-
-				if (node.right) {
-					queue.push(node.right);
-				}
+			if (node.left) {
+				queue.push(node.left);
 			}
 
-			output.push(levelAvg / levelSize);
-		}
-
-		return output;
-	},
-
-	minimumDepth(root) {
-		const queue = [root];
-
-		let minDepth = Number.MAX_SAFE_INTEGER;
-		let level = 1;
-
-		while (queue.length > 0) {
-			let levelSize = queue.length;
-
-			for (let i = 0; i < levelSize; i++) {
-				const node = queue.shift();
-
-				if (node.left) {
-					queue.push(node.left);
-				}
-
-				if (node.right) {
-					queue.push(node.right);
-				}
-
-				if (!node.left && !node.right) {
-					minDepth = Math.min(minDepth, level);
-				}
+			if (node.right) {
+				queue.push(node.right);
 			}
 
-			level++;
+			if (!node.left && !node.right) {
+				minDepth = Math.min(minDepth, level);
+			}
 		}
 
-		return minDepth;
-	},
-};
+		level++;
+	}
+
+	return minDepth;
+}
+
+export function findSuccessor(root, key) {
+	const queue = [root];
+
+	while (queue.length > 0) {
+		const node = queue.shift();
+
+		if (key === node.val) {
+			break;
+		}
+
+		if (node.left) {
+			queue.push(node.left);
+		}
+
+		if (node.right) {
+			queue.push(node.right);
+		}
+	}
+
+	if (queue.length > 0) {
+		return queue.shift().val;
+	}
+
+	return null;
+}
+
+export function pathSum(root, sum) {
+	const stack = [root];
+	const valuesStack = [root.val];
+
+	while (stack.length > 0) {
+		const node = stack.shift();
+		let targetSum = valuesStack.shift();
+
+		if (node.left === null && node.right === null && targetSum === sum) {
+			return true;
+		}
+
+		if (node.left) {
+			stack.push(node.left);
+			valuesStack.push(targetSum + node.left.val);
+		}
+
+		if (node.right) {
+			stack.push(node.right);
+			valuesStack.push(targetSum + node.right.val);
+		}
+	}
+
+	return false;
+}
+
+export function pathSum_Recursive(root, sum) {
+	if (root == null) {
+		return false;
+	}
+
+	if (root.left === null && root.right === null && sum === root.val) {
+		return true;
+	}
+
+	return (
+		pathSum_Recursive(root.left, sum - root.val) ||
+		pathSum_Recursive(root.right, sum - root.val)
+	);
+}

@@ -1,50 +1,80 @@
 const { TreeNode } = require("../TreeNode");
 
 const {
-  breadthFirst,
-  reverseLevelOrderTraversal,
-  zigzagTraversal,
+	breadthFirst,
+	reverseLevelOrderTraversal,
+	zigzagTraversal,
+	averageLevel,
+	minimumDepth,
 } = require("../Trees");
 
 describe("Binary Trees", () => {
-  it("does level order traversal", () => {
-    var root = new TreeNode(12);
-    root.left = new TreeNode(7);
-    root.right = new TreeNode(1);
-    root.left.left = new TreeNode(9);
-    root.right.left = new TreeNode(10);
-    root.right.right = new TreeNode(5);
+	it("does level order traversal", () => {
+		var root = new TreeNode(12);
+		root.left = new TreeNode(7);
+		root.right = new TreeNode(1);
+		root.left.left = new TreeNode(9);
+		root.right.left = new TreeNode(10);
+		root.right.right = new TreeNode(5);
 
-    const output = breadthFirst(root);
+		const output = breadthFirst(root);
 
-    expect(output).toStrictEqual([12, 7, 1, 9, 10, 5]);
-  });
+		expect(output).toStrictEqual([12, 7, 1, 9, 10, 5]);
+	});
 
-  it("does reverse level order traversal", () => {
-    var root = new TreeNode(12);
-    root.left = new TreeNode(7);
-    root.right = new TreeNode(1);
-    root.left.left = new TreeNode(9);
-    root.right.left = new TreeNode(10);
-    root.right.right = new TreeNode(5);
+	it("does reverse level order traversal", () => {
+		var root = new TreeNode(12);
+		root.left = new TreeNode(7);
+		root.right = new TreeNode(1);
+		root.left.left = new TreeNode(9);
+		root.right.left = new TreeNode(10);
+		root.right.right = new TreeNode(5);
 
-    const output = reverseLevelOrderTraversal(root);
+		const output = reverseLevelOrderTraversal(root);
 
-    expect(output).toStrictEqual([9, 10, 5, 7, 1, 12]);
-  });
+		expect(output).toStrictEqual([9, 10, 5, 7, 1, 12]);
+	});
 
-  it("does zigzag traversal", () => {
-    var root = new TreeNode(12);
-    root.left = new TreeNode(7);
-    root.right = new TreeNode(1);
-    root.left.left = new TreeNode(9);
-    root.right.left = new TreeNode(10);
-    root.right.right = new TreeNode(5);
-    root.right.left.left = new TreeNode(20);
-    root.right.left.right = new TreeNode(17);
+	it("does zigzag traversal", () => {
+		var root = new TreeNode(12);
+		root.left = new TreeNode(7);
+		root.right = new TreeNode(1);
+		root.left.left = new TreeNode(9);
+		root.right.left = new TreeNode(10);
+		root.right.right = new TreeNode(5);
+		root.right.left.left = new TreeNode(20);
+		root.right.left.right = new TreeNode(17);
 
-    const output = zigzagTraversal(root);
+		const output = zigzagTraversal(root);
 
-    expect(output).toStrictEqual([12, 1, 7, 9, 10, 5, 17, 20]);
-  });
+		expect(output).toStrictEqual([12, 1, 7, 9, 10, 5, 17, 20]);
+	});
+
+	it("does average level", () => {
+		var root = new TreeNode(12);
+		root.left = new TreeNode(7);
+		root.right = new TreeNode(1);
+		root.left.left = new TreeNode(9);
+		root.left.right = new TreeNode(2);
+		root.right.left = new TreeNode(10);
+		root.right.right = new TreeNode(5);
+
+		const output = averageLevel(root);
+
+		expect(output).toStrictEqual([12, 4, 6.5]);
+	});
+
+	it("does minimum depth", () => {
+		var root = new TreeNode(12);
+		root.left = new TreeNode(7);
+		root.right = new TreeNode(1);
+		root.right.left = new TreeNode(10);
+		root.right.right = new TreeNode(5);
+		root.left.left = new TreeNode(9);
+		root.right.left.left = new TreeNode(11);
+
+		const output = minimumDepth(root);
+
+		expect(output).toStrictEqual(3);
+	});
 });

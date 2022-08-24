@@ -98,4 +98,64 @@ module.exports = {
 
 		return treeNodes;
 	},
+
+	averageLevel(root) {
+		const queue = [root];
+
+		const output = [];
+
+		while (queue.length > 0) {
+			const levelSize = queue.length;
+
+			let levelAvg = 0;
+			for (let i = 0; i < levelSize; i++) {
+				const node = queue.shift();
+
+				levelAvg += node.val;
+
+				if (node.left) {
+					queue.push(node.left);
+				}
+
+				if (node.right) {
+					queue.push(node.right);
+				}
+			}
+
+			output.push(levelAvg / levelSize);
+		}
+
+		return output;
+	},
+
+	minimumDepth(root) {
+		const queue = [root];
+
+		let minDepth = Number.MAX_SAFE_INTEGER;
+		let level = 1;
+
+		while (queue.length > 0) {
+			let levelSize = queue.length;
+
+			for (let i = 0; i < levelSize; i++) {
+				const node = queue.shift();
+
+				if (node.left) {
+					queue.push(node.left);
+				}
+
+				if (node.right) {
+					queue.push(node.right);
+				}
+
+				if (!node.left && !node.right) {
+					minDepth = Math.min(minDepth, level);
+				}
+			}
+
+			level++;
+		}
+
+		return minDepth;
+	},
 };
